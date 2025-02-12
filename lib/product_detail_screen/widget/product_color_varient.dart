@@ -166,6 +166,11 @@ class _ProductColorVarientState extends State<ProductColorVarient> {
                             productDetailController.setVarientIndex(
                               index: index,
                             );
+                            if (productDetailController.productQuantity.value >
+                                (widget.colorVarient?[index].maxOrder ?? 0)) {
+                              productDetailController.productQuantity.value =
+                                  widget.colorVarient?[index].maxOrder ?? 0;
+                            }
                           },
                           child: Container(
                             width: 25,

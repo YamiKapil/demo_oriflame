@@ -133,12 +133,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       bottomNavigationBar: AnimatedBuilder(
           animation: Listenable.merge([
             _productDetailController.productQuantity,
-            _productDetailController.productDetailState
+            _productDetailController.productDetailState,
+            _productDetailController.selectedVarientIndex,
           ]),
           builder: (context, _) {
-            if (_productDetailController.productDetailState.value is! LoadedState) {
+            if (_productDetailController.productDetailState.value
+                is! LoadedState) {
               return const SizedBox.shrink();
             }
+            final productDetailData = (_productDetailController
+                    .productDetailState.value as LoadedState<ProductDetailModel>)
+                .response
+                ?.data;
             final productQuantity =
                 _productDetailController.productQuantity.value;
             return Container(
@@ -148,7 +154,13 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               ),
               child: Row(
                 children: [
-                  if (productQuantity == 0)
+                  if (productQuantity == 0 &&
+                      ((productDetailData
+                                  ?.colorVariants?[_productDetailController
+                                      .selectedVarientIndex.value]
+                                  .maxOrder ??
+                              0) >
+                          productQuantity))
                     Expanded(
                       child: GeneralButton(
                         buttonText: "Add to Cart",
@@ -189,13 +201,29 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     const SizedBox(width: 15),
                     GestureDetector(
                       onTap: () {
-                        _productDetailController.addProductQuantity();
+                        if ((productDetailData
+                                    ?.colorVariants?[_productDetailController
+                                        .selectedVarientIndex.value]
+                                    .maxOrder ??
+                                0) >
+                            productQuantity) {
+                          _productDetailController.addProductQuantity();
+                        }
                       },
                       child: Container(
                         width: 40,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: ColorConstants.primaryColor,
+                          color: ((productDetailData
+                                          ?.colorVariants?[
+                                              _productDetailController
+                                                  .selectedVarientIndex.value]
+                                          .maxOrder ??
+                                      0) >
+                                  _productDetailController
+                                      .productQuantity.value)
+                              ? ColorConstants.primaryColor
+                              : Colors.grey,
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: const Align(
