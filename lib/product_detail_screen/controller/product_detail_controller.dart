@@ -24,10 +24,10 @@ class ProductDetailController {
         productDetailState.value =
             LoadedState<ProductDetailModel>(response: data);
       }).onError((e, stackTrace) {
-        productDetailState.value = ErrorState(e.toString());
+        productDetailState.value = ErrorState("Something went wrong!!");
       });
     } catch (e) {
-      productDetailState.value = ErrorState(e.toString());
+      productDetailState.value = ErrorState("Something went wrong!!");
     }
   }
 
