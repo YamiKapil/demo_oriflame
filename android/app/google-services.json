@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "339782547518",
+    "project_id": "fir-proj-ebabb",
+    "storage_bucket": "fir-proj-ebabb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339782547518:android:8970df37f584580bcbb96f",
+        "android_client_info": {
+          "package_name": "com.example.demo_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfQpHUSbI2_VLlUDgkpQrTaB-8tEKyeCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
